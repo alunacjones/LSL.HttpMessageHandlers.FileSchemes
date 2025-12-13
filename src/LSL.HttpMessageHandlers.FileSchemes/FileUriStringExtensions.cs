@@ -1,5 +1,4 @@
 using System;
-using LSL.HttpMessageHandlers.FileSchemes.Infrastructure;
 
 namespace LSL.HttpMessageHandlers.FileSchemes;
 
@@ -13,14 +12,12 @@ public static class FileUriStringExtensions
     /// </summary>
     /// <param name="source"></param>
     /// <returns></returns>
-    public static string ToFileUriString(this string source) => 
-        $"file:///{source.AssertNotNull(nameof(source)).Replace("\\", "/")}";
+    public static string ToFileUriString(this string source) => ToFileUri(source).ToString();
 
     /// <summary>
     /// Convert a string to a file schemed URI
     /// </summary>
     /// <param name="source"></param>
     /// <returns></returns>
-    public static Uri ToFileUri(this string source) =>
-        new(source.ToFileUriString());
+    public static Uri ToFileUri(this string source) => new($"file://{source}");
 }

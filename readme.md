@@ -4,7 +4,13 @@
 
 # LSL.HttpMessageHandlers.FileSchemes
 
-Provide package documentation here.
+This library provides a `DelegatingHandler` to be used with `HttpClient`'s to handle the `file:` URI scheme.
+
+## Registering the message handler
+
+```csharp
+services.AddHttpClient<MyClient>(c => c.AddFileSchemeMessageHandler());
+```
 
 <!-- HIDE -->
 ## Further Documentation
