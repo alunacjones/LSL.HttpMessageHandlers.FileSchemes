@@ -10,15 +10,17 @@ namespace LSL.HttpMessageHandlers.FileSchemes.Tests;
 
 public class FileSchemeServiceCollectionExtensionsTests : BaseTest
 {
-    [Test]
-    public async Task GivenAFileScheme_ItShouldReturnTheExpectedStream()
+    [TestCase("temp.txt", "text/plain")]
+    [TestCase("temp.als", "text/plain")]
+    [TestCase("temp.nope", "application/octet-stream")]
+    public async Task GivenAFileScheme_ItShouldReturnTheExpectedStream(string fileName, string expectedMediaType)
     {
         await RunTest(async client =>
         {
             // Arrange
             using var tempFolder = new TemporaryFolderFactory().Create();
             var fileContent = "Hello";
-            var filePath = Path.Combine(tempFolder.FullPath, "temp.txt");
+            var filePath = Path.Combine(tempFolder.FullPath, fileName);
 
             await File.WriteAllTextAsync(filePath, fileContent);
 
@@ -30,6 +32,7 @@ public class FileSchemeServiceCollectionExtensionsTests : BaseTest
 
             response.Should().BeSuccessful();
             (await response.Content.ReadAsStringAsync()).Should().Be(fileContent);
+            response.Content.Headers.ContentType.MediaType.Should().Be(expectedMediaType);
         });
     }
 

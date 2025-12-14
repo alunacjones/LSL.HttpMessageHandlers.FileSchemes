@@ -33,12 +33,17 @@
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />    
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.0.0" />    
+    <PackageReference Include="System.Text.Json" Version="6.0.11" />
     <PackageReference Include="IsExternalInit" Version="1.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
+    </PackageReference>    
   </ItemGroup>
-    
+  
+  <ItemGroup>
+    <EmbeddedResource Include="Resources/*.*" />
+  </ItemGroup>
+
   <Target Name="CopyReadmeAndValidate" BeforeTargets="Build">
     <PropertyGroup>
       <ReadmeContent>$([System.IO.File]::ReadAllText('../../readme.md').TrimEnd())</ReadmeContent>

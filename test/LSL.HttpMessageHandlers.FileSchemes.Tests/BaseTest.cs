@@ -18,6 +18,7 @@ public class BaseTest
     private static IServiceProvider BuildServiceProvider()
     {
         return new ServiceCollection()
+            .ConfigureFileSchemeMessageHandler(c => c.WithExtensionMimeType(".als", "text/plain"))
             .AddHttpClient()
             .ConfigureHttpClientDefaults(c => c.AddFileSchemeMessageHandler())
             .BuildServiceProvider();    

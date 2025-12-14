@@ -1,3 +1,4 @@
+using System;
 using LSL.HttpMessageHandlers.FileSchemes;
 using LSL.HttpMessageHandlers.FileSchemes.Infrastructure;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -18,7 +19,20 @@ public static class FileSchemesServiceCollectionExtensions
     /// <returns></returns>
     public static IHttpClientBuilder AddFileSchemeMessageHandler(this IHttpClientBuilder source)
     {
-        source.AssertNotNull(nameof(source)).Services.TryAddTransient<FileSchemeMessageHandler>();
+        var services = source.AssertNotNull(nameof(source)).Services;
+        services.TryAddTransient<FileSchemeMessageHandler>();
+        services.TryAddSingleton<StreamContentHeaderProvider>();
+        services.TryAddSingleton<MimeTypeProvider>();
+        
         return source.AddHttpMessageHandler<FileSchemeMessageHandler>();
     }
+
+    /// <summary>
+    /// Configures the options for all file scheme message handlers
+    /// </summary>
+    /// <param name="source"></param>
+    /// <param name="configurator"></param>
+    /// <returns></returns>
+    public static IServiceCollection ConfigureFileSchemeMessageHandler(this IServiceCollection source, Action<FileSchemeHandlerOptions> configurator) =>
+        source.AssertNotNull(nameof(source)).Configure(configurator.AssertNotNull(nameof(configurator)));
 }

@@ -16,6 +16,7 @@ public class FileUriStringExtensionsTests
     [TestCase("..", false)]
     [TestCase(null, false)]
     [TestCase("file.txt", true)]
+    [TestCase("file.", false)]
     public void IsLikeAFileName_GivenAString_ItShouldReturnTheExpectedResult(string path, bool expectedResult)
     {
         path.IsLikeAFileName().Should().Be(expectedResult);
