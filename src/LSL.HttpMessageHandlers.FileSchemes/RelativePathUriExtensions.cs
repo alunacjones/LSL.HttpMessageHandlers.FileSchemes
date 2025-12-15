@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using LSL.HttpMessageHandlers.FileSchemes.Infrastructure;
 
 namespace LSL.HttpMessageHandlers.FileSchemes;
@@ -50,9 +49,9 @@ public static class RelativePathUriExtensions
 
     internal static string[] SplitUriPath(this string source) => source.Split(['/'], StringSplitOptions.RemoveEmptyEntries);
 
-    private record struct PathAggregation(IEnumerable<string> Segments, bool HasConcatenated, Uri SourceUri, string RelativePath)
+    private readonly record struct PathAggregation(IEnumerable<string> Segments, bool HasConcatenated, Uri SourceUri, string RelativePath)
     {
-        public readonly PathAggregation AssertNotConcatenated() => HasConcatenated 
+        public PathAggregation AssertNotConcatenated() => HasConcatenated 
             ? throw new InvalidRelativeUrlException(SourceUri, RelativePath)
             : this;
     }

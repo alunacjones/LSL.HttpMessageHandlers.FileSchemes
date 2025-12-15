@@ -13,7 +13,7 @@ internal class FileSchemeMessageHandler(StreamContentHeaderProvider streamConten
 {
     /// <inheritdoc/>
     protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken) =>
-        (request.RequestUri.Scheme, request.RequestUri.LocalPath) switch
+        (request.RequestUri.Scheme, request.RequestUri.AbsolutePath) switch
         {
             ("file", string path) => CreateFileResult(path),
             _ => base.SendAsync(request, cancellationToken)

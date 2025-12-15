@@ -15,10 +15,13 @@ public class BaseTest
         return testDelegate(httpClient);
     }
 
-    private static IServiceProvider BuildServiceProvider()
+    private static IServiceProvider BuildServiceProvider(Action<FileSchemeHandlerOptions> configurator = null)
     {
         return new ServiceCollection()
-            .ConfigureFileSchemeMessageHandler(c => c.WithExtensionMimeType(".als", "text/plain"))
+            .ConfigureFileSchemeMessageHandler(c => { 
+                c.WithExtensionMimeType(".als", "text/plain");
+                configurator?.Invoke(c);
+            })
             .AddHttpClient()
             .ConfigureHttpClientDefaults(c => c.AddFileSchemeMessageHandler())
             .BuildServiceProvider();    

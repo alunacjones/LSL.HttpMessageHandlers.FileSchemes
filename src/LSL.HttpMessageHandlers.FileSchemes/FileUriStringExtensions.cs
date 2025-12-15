@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 namespace LSL.HttpMessageHandlers.FileSchemes;
 
 /// <summary>
-/// 
+/// File uri string extensions
 /// </summary>
 public static class FileUriStringExtensions
 {
@@ -31,7 +31,7 @@ public static class FileUriStringExtensions
     ///     <item>The string is not <see langword="null"/></item>
     ///     <item>The string is not <c>.</c></item>
     ///     <item>The string is not <c>..</c></item>
-    ///     <item>The string contains <c>.</c> with non dot characters after it</item>
+    ///     <item>The string ends with <c>.</c> followed by non-dot characters e.g. <c>file.txt</c></item>
     /// </list>
     /// </remarks>
     /// <param name="source"></param>

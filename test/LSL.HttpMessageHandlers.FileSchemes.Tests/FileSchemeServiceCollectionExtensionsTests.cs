@@ -77,4 +77,13 @@ public class FileSchemeServiceCollectionExtensionsTests : BaseTest
             .Should()
             .ThrowExactly<ArgumentNullException>();
     }
+
+    [Test]
+    public void GivenAnInvalidFileExtensionForOptions_ItShouldThrowAnArgumentException()
+    {
+        new Action(() => new FileSchemeHandlerOptions().WithExtensionMimeType("not-an-extension", "no-care"))
+            .Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage("File extension 'not-an-extension' is invalid. It must start with a dot followed by letters or numbers");
+    }
 }

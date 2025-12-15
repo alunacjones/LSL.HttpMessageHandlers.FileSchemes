@@ -13,5 +13,4 @@ internal static class ArrayExtensions
         value = source[source.Length - 1];
         return true;
     }
-
 }

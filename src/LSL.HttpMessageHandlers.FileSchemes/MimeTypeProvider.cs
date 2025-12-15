@@ -20,10 +20,8 @@ internal class MimeTypeProvider
         }
     );
 
-    public string GetMimeType(string filePath)
-    {
-        return  _mimeTypeMap.Value.TryGetValue(Path.GetExtension(filePath), out var mimeType)
+    public string GetMimeType(string filePath) => 
+        _mimeTypeMap.Value.TryGetValue(Path.GetExtension(filePath), out var mimeType)
             ? mimeType
             : "application/octet-stream";
-    }
 }
